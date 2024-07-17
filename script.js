@@ -3,7 +3,12 @@ const sortButton = document.getElementById("sort");
 const sortInputArray = (event) => {
     event.preventDefault();
     const inputValues = [...document.getElementsByClassName("values-dropdown")].map((dropdown) => Number(dropdown.value));
-    const sortedValues = selectionSort(inputValues);
+
+    // use one of the three sort functions below for sortedValues //
+    const sortedValues = insertionSort(inputValues);
+    
+    //  .sort method replaces below sort functions; .sort can be used can be used to sort in alphabetical order (a-z or 0-9) by default but a callback function can be used as well to add logic //
+    //const sortedValues = inputValues.sort((a,b) => a-b);
     updateUI(sortedValues);
 }
 
@@ -12,38 +17,48 @@ const updateUI = (array = []) => {
     const outputValueNode = document.getElementById(`output-value-${i}`);
     outputValueNode.innerText = num;
     });
-  }
+}
 
-  const bubbleSort = (array) => {
-    for (let i = 0; i < array.length; i++) {
-      for (let j = 0; j < array.length - 1; j++) {
-        if (array[j] > array[j + 1]) {
-            const temp = array[j];
-            array[j] = array[j+1];
-            array[j+1] = temp;
-          }
-      }
-    }
-    return array;
-  }
-
-  const selectionSort = (array) => {
-    for (let i = 0; i < array.length; i++) {
-      let minIndex = i;
-  
-      for (let j = i + 1; j < array.length; j++) {
-        console.log(array, array[j], array[minIndex]);
-        if (array[j] < array[minIndex]) {
-          minIndex = j;
+const bubbleSort = (array) => {
+  for (let i = 0; i < array.length; i++) {
+    for (let j = 0; j < array.length - 1; j++) {
+      if (array[j] > array[j + 1]) {
+          const temp = array[j];
+          array[j] = array[j+1];
+          array[j+1] = temp;
         }
-      }
-  
-      const temp = array[i];
-      array[i] = array[minIndex];
-      array[minIndex] = temp;
     }
-    return array;
-  
   }
+  return array;
+}
+
+const selectionSort = (array) => {
+  for (let i = 0; i < array.length; i++) {
+    let minIndex = i;
+    for (let j = i + 1; j < array.length; j++) {
+      if (array[j] < array[minIndex]) {
+        minIndex = j;
+      }
+    }
+    const temp = array[i];
+    array[i] = array[minIndex];
+    array[minIndex] = temp;
+  }
+  return array;
+}
+
+const insertionSort = (array) => {
+  for (let i = 1; i < array.length; i++) {
+    const currValue = array[i];
+    let j = i - 1;
+            
+    while (j >= 0 && array[j] > currValue) {
+      array[j + 1] = array[j];
+      j--;
+    }
+    array[j + 1] = currValue;
+  }
+  return array;
+}
 
 sortButton.addEventListener("click", sortInputArray);
