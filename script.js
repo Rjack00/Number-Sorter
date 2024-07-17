@@ -9,6 +9,7 @@ const sortInputArray = (event) => {
     
     //  .sort method replaces below sort functions; .sort can be used can be used to sort in alphabetical order (a-z or 0-9) by default but a callback function can be used as well to add logic //
     //const sortedValues = inputValues.sort((a,b) => a-b);
+
     updateUI(sortedValues);
 }
 
